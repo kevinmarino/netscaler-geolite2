@@ -1,0 +1,41 @@
+name: Get-GeoLite2
+
+run-name: Get GeoLite2 Databases
+on: workflow_dispatch
+
+jobs:
+  download_and_copy:
+    runs-on:
+      group: azure-linux # Replace with your GitHub Runners - This should have internet access
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          repository: replace_with/your_repo_info
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: List Files in Repository before copy
+        run: ls $GITHUB_WORKSPACE
+
+      - name: Download File
+        run: |
+          curl -O -J -L -u ${{vars.MAXMIND_ID}}:${{secrets.MAXMIND_KEY}} 'https://download.maxmind.com/geoip/databases/GeoLite2-City-CSV/download?suffix=zip'
+
+      - name: List Files in Repository after copy
+        run: ls $GITHUB_WORKSPACE
+
+      - name: Move File to Desired Location
+        run: mv $GITHUB_WORKSPACE/GeoLite2-City*.zip /data/maxmind_geoip/
+
+      - name: List Files in Destination Directory
+        run: ls data/maxmind_geoip
+
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Add downloaded file"
+          git push

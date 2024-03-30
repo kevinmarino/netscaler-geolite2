@@ -1,28 +1,28 @@
 name: Set-GeoLite2
 
-run-name: ${{ github.actor }} Executed the workflow for setting GeoLite2 Databases
+run-name: Set GeoLite2 Databases
 on:
   workflow_dispatch:
   push:
     paths:
-      - "/data/maxmind_geoip/Netscaler_Maxmind_GeoIP_DB_IPv4.csv.gz"
-      - "/data/maxmind_geoip/Netscaler_Maxmind_GeoIP_DB_IPv6.csv.gz"
+      - "data/maxmind_geoip/Netscaler_Maxmind_GeoIP_DB_IPv4.csv.gz"
+      - "data/maxmind_geoip/Netscaler_Maxmind_GeoIP_DB_IPv6.csv.gz"
     branches: main
 
 jobs:
   maxmind_geolite2_update:
     runs-on:
-      group: ON-PREM-GITHUB-RUNNERS
+      group: Your_Runners # This should run with your GitHub Runners that have access to your NetScalers
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Run PowerShell Script as NETSCALER Account
+      - name: Run PowerShell Script
         id: run-script
         run: |
-          $username = "${{ vars.NETSCALER_USERNAME }}"
-          $password = ConvertTo-SecureString -String ${{ secrets.NETSCALER_PW }} -AsPlainText -Force
+          $username = "${{ vars.USERNAME }}"
+          $password = ConvertTo-SecureString -String ${{ secrets.PW }} -AsPlainText -Force
           $credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $username, $password
           # Now you can pass $credential to your PowerShell script or cmdlet that uses Get-Credential
-          ./set-geolite2/set-geolite2.ps1 -Credential $credential # Original script run
+          ./set-geolite2/set-geolite2.ps1 -Credential $credential # original script run
         shell: pwsh

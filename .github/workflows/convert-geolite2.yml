@@ -1,0 +1,42 @@
+name: Convert-GeoLite2
+
+run-name: Convert GeoLite2 Databases
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "data/maxmind_geoip/GeoLite2-City-CSV*.zip" # Run workflow on push to an updated zip file
+    branches: main
+
+jobs:
+  maxmind_geolite2_convert:
+    runs-on:
+      group: Your_Runners # This should run with your GitHub Runners that have access to your NetScalers
+    permissions:
+      contents: write # Gives permissions to the Github_token to commit and push the converted .gz files back to the repo.
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          repository: replace_with/your_repo_info
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run PowerShell Script as SandboxTF Account
+        id: run-script
+        run: |
+          $username = "${{ vars.SADNBOXTF_USERNAME }}"
+          $password = ConvertTo-SecureString -String ${{ secrets.SANDBOXTF_PW }} -AsPlainText -Force
+          $credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $username, $password
+          # Now you can pass $credential to your PowerShell script or cmdlet that uses Get-Credential
+          ./convert-geolite2/convert-geolite2.ps1 -Credential $credential # original script run
+        shell: pwsh
+
+      - name: Commit and Push Changes
+        run: |
+          # Attempting to commit changes to the Repo
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Add converted .gz files"
+          git push
