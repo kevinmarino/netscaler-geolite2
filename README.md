@@ -1,7 +1,9 @@
 # netscaler-geolite2
 NetScaler GitHub Automation Script to update GeoLite2 IP Location Databases on ADM and VPX's
 
-This is a project that I am currently working on that in it's current state will take converted files, Netscaler_Maxmind_GeoIP_DB_IPv4.csv.gz and Netscaler_Maxmind_GeoIP_DB_IPv6.csv.gz files and copy them to a NetScaler VPX instance, extract them and then add the locationfile and locationfile6 databases to the configuration. With the additions of the Get-Geolite2database.yml, convert-geolite2.yml and convert-geoltie2.ps1 powershell script this should give you a complete package from start to finish for getting a new GeoLite2-CSV database, converting it and then deploying it to your instances.
+This is a project that I am currently working on that in it's current state will take converted files, Netscaler_Maxmind_GeoIP_DB_IPv4.csv.gz and Netscaler_Maxmind_GeoIP_DB_IPv6.csv.gz files and copy them to a NetScaler VPX instance, extract them and then add the locationfile and locationfile6 databases to the configuration.
+
+With the additions of the Get-Geolite2database.yml, convert-geolite2.yml and convert-geoltie2.ps1 powershell script this should give you a complete package from start to finish for getting a new GeoLite2-CSV database, converting it and then deploying it to your instances.
 
 Additional steps that are in progress are the following that will fully automate the GeoLite2 database update
 - Add support for ADM as the upgrade process is a slightly different procedrue
@@ -18,9 +20,7 @@ Running this GeoLite2 database process in my work enviorment makes it difficult 
 
 ## Things to workthrough
 
-The workflow actions is something still new to me. My scripting skill set is not that advanced and I continue to learn and re-shape things that have been created to attempt to build re-usable and parameter friendly code. There are some things that could be tweaked but for a working solution this is what I've come up with so far.
-
-As I continue to run, tweak and learn how to do things better I'll re-visit this and update.
+The workflow actions is something still new to me. I continue to learn I work at building re-usable and parameter friendly code. As with anything, the more time spent on something the better it can become. As a first project with GitHub workflow, actions and NetScaler powershell scripting there's a lot that can be revised in the future.
 
 ## Things to Add
 
