@@ -62,7 +62,7 @@ It was intended to be run from GitHub however due to port restrictions on the Gi
 Running the script:
 
 - Define a $Credential variable first by either running $Credential = Get-Credentail and then providing the information or already having one set to be passed to the script as a parameter
-- You scan use the netscaler-snips.csv file located in the scripts\data directory if you intend to run this against all NetScaler. In testing sandbox-snips.csv was used. You can create a list of specific instances to run against as well. Just update the script variable accordingly.
+- You scan use the netscaler.csv file located in the \data directory if you intend to run this against all NetScaler. You can create a list of specific instances to run against as well. Just update the script variable accordingly.
 - You should have updated 'Netscaler_Maxmind_GeoIP_DB_IPv4.csv.gz' and 'Netscaler_Maxmind_GeoIP_DB_IPv6.csv.gz' files in the \data\maxmind_geoip directory.
 - Be sure that you start in the root directory, c:\repos\netscaler-geolite2\set-geolite2\ when you run the script execution command:
   Example script execution:  `.\set-geolite2.ps1 -Credential $credential` while in the root path of where the script is located.
