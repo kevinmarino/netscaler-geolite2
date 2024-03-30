@@ -25,3 +25,7 @@ The workflow actions is something still new to me. I continue to learn I work at
 ## Things to Add
 
 - ADM support. Currently this script does not account for updating the ADM GeoLocation file. To be done in a future revision.
+
+## MaxMind GeoLite2
+
+You'll need to create an account to access and download the MaxMind GeoLite2 database files. https://www.maxmind.com/en/home. Once you have an account created you can find your MaxMind ID and generate a Key for use to automatically downloading the appropriate files.
